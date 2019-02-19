@@ -8,13 +8,41 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource{
+    var imgArr:[UIImage] = [
+        UIImage(named:"Women")!,
+        UIImage(named:"Men")!,
+        UIImage(named:"kids")!,
+        UIImage(named:"jewelry")!,
+        UIImage(named:"shoes")!,
+         UIImage(named:"home")!,
+    ]
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imgArr.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionViewCell
+        cell.SectionsCell.image = imgArr[indexPath.row]
+        return cell
+    }
+    
 
     
+    @IBOutlet weak var mainScreen: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        collectionView.dataSource = self
+        collectionView.delegate = self
+//        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+//        layout.sectionInset = UIEdgeInsets(top: 0,left: 5,bottom: 0,right: 5)
+//        layout.minimumInteritemSpacing = 5
+//        layout.itemSize = CGSize(width: (self.collectionView.frame.size.width - 20)/2, height: self.collectionView.frame.size.height/3)
+        
     }
 
     @IBAction func thirtyTwentyButton(_ sender: Any) {
@@ -71,6 +99,11 @@ class ViewController: UIViewController {
       print("Kohls 10$ cash tapped")
     
     }
+    
+    @IBAction func doorBusters(_ sender: Any) {
+        print("Door Busters Page Navigation Request")
+    }
+    
     
     
     
